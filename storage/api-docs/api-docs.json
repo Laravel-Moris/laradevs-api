@@ -1,0 +1,230 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laradevs API",
+        "description": "Laradevs API Documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://laradevs.test/api/v1"
+        }
+    ],
+    "paths": {
+        "/developers": {
+            "get": {
+                "tags": [
+                    "Developers"
+                ],
+                "summary": "List all developers",
+                "description": "Get a paginated list of all developers",
+                "operationId": "indexDevelopers",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Developers"
+                ],
+                "summary": "Create a developer",
+                "description": "Create a new developer",
+                "operationId": "storeDeveloper",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Developer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/developers/{developer}": {
+            "get": {
+                "tags": [
+                    "Developers"
+                ],
+                "summary": "Get a developer",
+                "description": "Get a single developer by ID",
+                "operationId": "showDeveloper",
+                "parameters": [
+                    {
+                        "name": "developer",
+                        "in": "path",
+                        "description": "ID of developer to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Developer not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Developers"
+                ],
+                "summary": "Update a developer",
+                "description": "Update a developer by ID",
+                "operationId": "updateDeveloper",
+                "parameters": [
+                    {
+                        "name": "developer",
+                        "in": "path",
+                        "description": "ID of developer to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Developer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Developer not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Developers"
+                ],
+                "summary": "Delete a developer",
+                "description": "Delete a developer by ID",
+                "operationId": "destroyDeveloper",
+                "parameters": [
+                    {
+                        "name": "developer",
+                        "in": "path",
+                        "description": "ID of developer to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Developer not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Developer": {
+                "properties": {
+                    "name": {
+                        "description": "The name of the developer",
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "bio": {
+                        "description": "A short bio of the developer",
+                        "type": "string",
+                        "example": "I am a developer"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Developers",
+            "description": "API Endpoints of Developers"
+        }
+    ],
+    "security": [
+        {
+            "sanctum": []
+        }
+    ]
+}
