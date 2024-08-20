@@ -7,10 +7,24 @@ use App\Models\Developer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use OpenApi\Attributes as OAT;
 
-class DeveloperController extends Controller
+class DeveloperController extends Controller implements HasMiddleware
 {
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('ability:read-developer', only: ['index', 'show']),
+            new Middleware('ability:create-developer', only: ['store']),
+            new Middleware('abilities:read-developer,update-developer', only: ['update', 'destroy']),
+        ];
+    }
+
     #[OAT\Get(
         path: '/developers',
         operationId: 'indexDevelopers',
@@ -22,7 +36,15 @@ class DeveloperController extends Controller
                 response: 200,
                 description: 'Successful operation',
                 content: new OAT\JsonContent()
-            )
+            ),
+            new OAT\Response(
+                response: 401,
+                description: 'Unauthenticated response',
+            ),
+            new OAT\Response(
+                response: 403,
+                description: 'Forbidden'
+            ),
         ]
     )]
     public function index(): LengthAwarePaginator
@@ -56,7 +78,15 @@ class DeveloperController extends Controller
                 response: 404,
                 description: 'Developer not found',
                 content: new OAT\JsonContent()
-            )
+            ),
+            new OAT\Response(
+                response: 401,
+                description: 'Unauthenticated response',
+            ),
+            new OAT\Response(
+                response: 403,
+                description: 'Forbidden'
+            ),
         ]
     )]
     public function show(Developer $developer): Developer
@@ -82,7 +112,15 @@ class DeveloperController extends Controller
                 response: 201,
                 description: 'Successful operation',
                 content: new OAT\JsonContent()
-            )
+            ),
+            new OAT\Response(
+                response: 401,
+                description: 'Unauthenticated response',
+            ),
+            new OAT\Response(
+                response: 403,
+                description: 'Forbidden'
+            ),
         ]
     )]
     public function store(Request $request): Developer
@@ -131,7 +169,15 @@ class DeveloperController extends Controller
                 response: 404,
                 description: 'Developer not found',
                 content: new OAT\JsonContent()
-            )
+            ),
+            new OAT\Response(
+                response: 401,
+                description: 'Unauthenticated response',
+            ),
+            new OAT\Response(
+                response: 403,
+                description: 'Forbidden'
+            ),
         ]
     )]
     public function update(Request $request, Developer $developer): Developer
@@ -172,7 +218,15 @@ class DeveloperController extends Controller
                 response: 404,
                 description: 'Developer not found',
                 content: new OAT\JsonContent()
-            )
+            ),
+            new OAT\Response(
+                response: 401,
+                description: 'Unauthenticated response',
+            ),
+            new OAT\Response(
+                response: 403,
+                description: 'Forbidden'
+            ),
         ]
     )]
     public function destroy(Developer $developer): Response

@@ -27,6 +27,12 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated response"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             },
@@ -55,6 +61,12 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated response"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             }
@@ -96,6 +108,12 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated response"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             },
@@ -145,6 +163,12 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated response"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             },
@@ -184,6 +208,12 @@
                                 "schema": {}
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated response"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             }
