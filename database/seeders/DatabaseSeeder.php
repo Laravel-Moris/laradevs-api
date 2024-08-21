@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)
             ->create();
 
-        Developer::factory(20)
+        Developer::factory(5)
             ->afterCreating(function (Developer $developer) {
                 $developer
                     ->createdBy()

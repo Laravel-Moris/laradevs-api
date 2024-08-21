@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Developer;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use OpenApi\Attributes as OAT;
@@ -19,9 +19,10 @@ class DeveloperController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('ability:read-developer', only: ['index', 'show']),
-            new Middleware('ability:create-developer', only: ['store']),
-            new Middleware('abilities:read-developer,update-developer', only: ['update', 'destroy']),
+            (new Middleware('ability:read-developer'))->only(['index', 'show']),
+            (new Middleware('ability:create-developer'))->only('store'),
+            (new Middleware('abilities:read-developer,update-developer'))->only('update'),
+            (new Middleware('abilities:read-developer,destroy-developer'))->only('destroy'),
         ];
     }
 
@@ -47,9 +48,9 @@ class DeveloperController extends Controller implements HasMiddleware
             ),
         ]
     )]
-    public function index(): LengthAwarePaginator
+    public function index(): Collection
     {
-        return Developer::paginate();
+        return Developer::all();
     }
 
     #[OAT\Get(
@@ -126,7 +127,7 @@ class DeveloperController extends Controller implements HasMiddleware
     public function store(Request $request): Developer
     {
         $data = $request->validate([
-            'name' =>[ 'required', 'string'],
+            'name' => ['required', 'string'],
             'bio' => ['required', 'string'],
         ]);
 
